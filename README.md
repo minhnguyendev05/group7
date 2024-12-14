@@ -1,12 +1,23 @@
 # Group 07
 - Website tạo lịch trình công việc
+
+
+
 ## Cài đặt
 
 1. Clone repository:
 ```bash
 git clone https://github.com/minhnguyendev05/group7.git
-```
+cd src
+php artisan serve
 
+```
+### Yêu Cầu (Requirement)
+- PHP 
+Run test if it installed!
+```bash 
+php -v
+```
 ### Hướng dẫn sử dụng (Usage)
 - Cung cấp thông tin về cách sử dụng dự án sau khi cài đặt xong.
 ```markdown
@@ -20,7 +31,7 @@ Sau khi cài đặt, bạn có thể mở web bằng cách...
 
 ### Công nghệ sử dụng
 
-- PHP
+- PHP (Laravel)
 - HTML,CSS,JS
 - MySQL
 
