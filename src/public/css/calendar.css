@@ -1,0 +1,14 @@
+.fc .fc-timegrid-axis-cushion, .fc .fc-timegrid-slot-label-cushion {
+    padding: 0px 4px;
+    color: #fff;
+}
+.fc-theme-standard .fc-list-day-cushion {
+    background: #000;
+}
+.fc .fc-list-day-cushion, .fc .fc-list-table td {
+    padding: 8px 14px;
+    color: white;
+}
+.fc .fc-list-event:hover td {
+    background: gray;
+}
