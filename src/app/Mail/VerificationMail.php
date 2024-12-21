@@ -1,41 +1,35 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
-require 'vendor/autoload.php';
+namespace App\Mail;
 
-class MailService
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class VerificationMail extends Mailable
 {
-    private $mailer;
+    use SerializesModels;
 
-    public function __construct()
+    public $user;
+
+    /**
+     * Tạo một instance mới của lớp Mailable.
+     *
+     * @param  \App\Models\User  $user
+     * @return void
+     */
+    public function __construct($user)
     {
-        $this->mailer = new PHPMailer(true);
-        $this->configure();
+        $this->user = $user;
     }
 
-    private function configure()
+    /**
+     * Xây dựng thông điệp email.
+     *
+     * @return $this
+     */
+    public function build()
     {
-        $this->mailer->isSMTP();
-        $this->mailer->Host = 'smtp.gmail.com';
-        $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = 'your_email@gmail.com';
-        $this->mailer->Password = 'your_email_password';
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->mailer->Port = 587;
-        $this->mailer->setFrom('your_email@gmail.com', 'Your Name');
-    }
-
-    public function sendEmail($recipientEmail, $subject, $body)
-    {
-        try {
-            $this->mailer->addAddress($recipientEmail);
-            $this->mailer->Subject = $subject;
-            $this->mailer->Body = $body;
-            $this->mailer->send();
-            echo 'Message has been sent';
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
-        }
+        return $this->subject('Mã xác nhận đăng ký')->view('auth.verification');
     }
 }

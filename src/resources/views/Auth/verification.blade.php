@@ -7,7 +7,7 @@
     <title>Mã xác nhận đăng ký</title>
 </head>
 <body>
-    <h2>Xin chào {{ $user->name }}</h2>
+    <h2>Xin chào {{ $user->username }}</h2>
     <p>Để hoàn tất quá trình đăng ký, vui lòng sử dụng mã xác nhận dưới đây:</p>
     <h3>{{ $user->verification_token }}</h3>
     <p>Cảm ơn bạn đã đăng ký!</p>

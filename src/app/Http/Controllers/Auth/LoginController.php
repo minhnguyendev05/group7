@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // Xác thực thông tin đăng nhập
-        $credentials = $request->only('name', 'password');
+        $credentials = $request->only('username', 'password');
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
