@@ -5,7 +5,7 @@
 ## Yêu Cầu (Requirement)
 - PHP 
 - Composer
-Run test if it installed!
+- Run test if it installed!
 ```bash 
 php -v
 composer -v
