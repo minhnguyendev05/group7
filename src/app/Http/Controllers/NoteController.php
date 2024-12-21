@@ -14,7 +14,7 @@ class NoteController extends Controller
 {
     public function view(){
         $userid = Auth::id();
-        $note = DB::select(DB::raw("SELECT * FROM notes WHERE userid = ?"),[$userid]);
+        $note = DB::select(DB::raw("SELECT * FROM notes WHERE userid = ? ORDER BY ghim DESC"),[$userid]);
         foreach($note as $nt){
             $nt->content = substr($nt->content,0, 10)."...";
             $nt->ngay = date("d/m/Y",strtotime($nt->ngay));
@@ -39,7 +39,7 @@ class NoteController extends Controller
             $word = new WordController();
             $check = $word->check([$notename,$content]);
             if($check === false){
-                return response()->json(["status"=>500,"message"=>"Nội dung của bạn chứa từ bị cấm. Hãy biết điều tuân thủ quy tắc!"]);
+                return response()->json(["status"=>500,"message"=>"Nội Dung Của Bạn Chứa Từ Bị Cấm. Hãy Biết Điều Tuân Thủ Quy Tắc!"]);
             }
             $note = Note::create([
                 'notename' => $notename,
@@ -49,9 +49,9 @@ class NoteController extends Controller
                 'ghim' => 0,
             ]);
             if($note){
-                return response()->json(["status"=>200,"message"=>"Thêm ghi chú thành công!"]);
+                return response()->json(["status"=>200,"message"=>"Thêm Ghi Chú Thành Công!"]);
             } else {
-                return response()->json(["status"=>500,"message"=>"Thêm ghi chú thất bại!"]);
+                return response()->json(["status"=>500,"message"=>"Thêm Ghi Chú Thất Bại!"]);
             }
         } else {
             return abort(403);
@@ -60,16 +60,23 @@ class NoteController extends Controller
     public function get_note(){
         if(Auth::check()){
             $userid = Auth::id();
-            $note = DB::select(DB::raw("SELECT * FROM notes WHERE userid = ?"),[$userid]);
+            $note = DB::select(DB::raw("SELECT * FROM notes WHERE userid = ? ORDER BY ghim DESC"),[$userid]);
             $data = "";
             foreach($note as $nt){
                 $nt->content = substr($nt->content,0, 10)."...";
                 $nt->ngay = date("d/m/Y",strtotime($nt->ngay));
+                if($nt->ghim === 1){
+                    $type = 0;
+                    $txt = "Bỏ Ghim";
+                } else {
+                    $type = 1;
+                    $txt = "Ghim";
+                }
                 $data .= '<div class="flex flex-wrap flex-evenly text-white padding-10 margin-10">
                         <div class="name-time border-right">'.$nt->notename.'</div>
                         <div class="name-time border-right">'.$nt->content.'</div>
                         <div class="name-time border-right">'.$nt->ngay.'</div>
-                        <a class="name-time border-right link text-white" onclick="ghim('.$nt->id.')">Ghim</a>
+                        <a class="name-time border-right link text-white" onclick="ghim('.$nt->id.','.$type.')">'.$txt.'</a>
                     </div>';
             }
             if($note){
@@ -118,7 +125,7 @@ class NoteController extends Controller
         $word = new WordController();
         $check = $word->check([$content]);
         if($check === false){
-            return redirect()->route('view_review')->with('error',"Nội dung của bạn chứa từ bị cấm. Hãy biết điều tuân thủ quy tắc!")->with('data','false');
+            return redirect()->route('view_review')->with('error',"Nội Dung Của Bạn Chứa Từ Bị Cấm. Hãy Biết Điều Tuân Thủ Quy Tắc!")->with('data','false');
         }
         $userid = Auth::id();
         $review = Review::create([

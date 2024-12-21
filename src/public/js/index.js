@@ -39,4 +39,18 @@ function showToast(message, delay = 3000, type) {
     var toast = new bootstrap.Toast(toastEl, { delay: delay });
     toast.show();
   }
+window.addEventListener('DOMContentLoaded', function(){
+  var bars = document.querySelector('i.mn-bars');
+  var link = document.querySelector('div.links');
+  bars.addEventListener('click', function(){
+    link.classList.toggle('flex-i');
+    bars.classList.toggle('fa-times');
+  });
+  var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            }
+        });
+});
   

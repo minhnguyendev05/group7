@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon; // for time
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\WordController;
 
 class WorkController extends Controller
 {
@@ -38,28 +39,10 @@ class WorkController extends Controller
                         ->withInput();
         }
         // blacklist 
-        $blacklist = [
-            'địt', 'fuck', 'lồn', 'pê-đê', 'cặc', 'đụ', 'dâm', 'chịch', 'vãi', 'buồi', 'mẹ', 'con mẹ',
-            'đĩ', 'chơi gái', 'bậy', 'chửi bậy', 'lưỡi tục', 'điếm', 'đụng đít', 'sờ soạng',
-            'khốn nạn', 'thối', 'tởm', 'ngáo đá', 'tào lao', 'xạo', 'lươn lẹo', 'lừa đảo',
-            'nứng', 'nghe đéo', 'đéo', 'tự sướng', 'gâu', 'bóc phốt', 'vô dụng', 'thân xác', 'con chó', 'ngu',
-            'quái', 'đầu bò', 'nửa mùa', 'khoái', 'gái gọi', 'thằng chó', 'bế tắc', 'giẻ rách',
-            'khốn khổ', 'thịt', 'chó đẻ', 'mất dạy', 'nhục', 'hèn', 'kền kền', 'bệnh hoạn',
-            'hả hê', 'trẻ trâu', 'ngáo ngơ', 'gạ tình', 'trốn thoát', 'sống hèn', 'bẩn thỉu', 'sờ mó',
-            'xạo lồn', 'lố bịch', 'đổ đốn', 'lòng tham', 'ngu', 'ăn cắp', 'lừa',
-            'cak', 'hư hỏng', 'dm', 'dcm', 'cdm', 'cmm', 'đm', 'đcm', 'cc','vcl','vkl','cmn','deo me', 'cmm','chó','bao phòng'
-        ];
-        foreach ($blacklist as $word) {
-            if (stripos($workname, $word) !== false || stripos($mota, $word) !== false) {
-                $user = User::where('id',Auth::id())->first();
-                $vipham = $user->vipham + 1;
-                if($vipham >= 5){
-                    $user->update(["status"=> 0,"vipham"=> $vipham]);
-                } else {
-                    $user->update(["vipham" => $vipham]);
-                }
-                return redirect()->back()->withErrors(['content' => 'Nội dung của bạn chứa từ bị cấm. Hãy biết điều tuân thủ quy tắc!']);
-            }
+        $word = new WordController();
+        $check = $word->check([$workname,$mota]);
+        if($check === false){
+           return redirect()->back()->withErrors(['content' => 'Nội Dung Của Bạn Chứa Từ Bị Cấm. Hãy Biết Điều Tuân Thủ Quy Tắc!']);
         }
         $work = Work::create([
             'workname' => $workname,

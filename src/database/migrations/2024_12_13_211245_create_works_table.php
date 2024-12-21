@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('workname');
             $table->string('mota')->nullable();
-            $table->timestamp('timestart')->nullable();
+            $table->timestamp('timestart');
             $table->timestamp('timeend')->nullable();
+            $table->integer('userid');
+            $table->integer('done');
             $table->timestamps();
         });
     }

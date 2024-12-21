@@ -96,39 +96,7 @@
                 showToast("{{ session('error') }}",3000, "error");
             }
         });
-        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': csrfToken
-            }
-        });
-        $(document).ready(function(){
-            $('#create').click(function(event) {
-                let notename = document.getElementById('notename').value;
-                let ngay = document.getElementById('ngay').value;
-                let content = document.getElementById('content').value;
-                $.ajax({
-                    url: '/note/add',
-                    type: 'POST',
-                    data: { notename: notename, ngay: ngay, content: content },
-                    success: function(response) {
-                    const {status,message} = response;
-                    if(status === 200){
-                        showToast(response.message,3000,"success");
-                        get_note();
-                    } else {
-                        showToast(response.message,3000,"error");
-                    }
-                    },
-                    error: function(xhr, status, error) {
-                        showToast(response.message,3000,"success");
-                    }
-                });
-            });
-            $('#ok').on('click', function(){
-                window.location.href = "/";
-            });
-        });
+        
     </script>
     
     @include('footer')

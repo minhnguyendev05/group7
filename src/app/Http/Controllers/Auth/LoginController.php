@@ -38,6 +38,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();  // Đăng xuất người dùng
+        session()->flush();
         return redirect()->route('login');  // Chuyển hướng đến trang đăng nhập
     }
 

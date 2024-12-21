@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('ngay');
             $table->integer('userid');
             $table->string('content');
+            $table->integer('ghim');
             $table->timestamps();
         });
     }

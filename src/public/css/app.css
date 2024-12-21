@@ -6,26 +6,26 @@ body {
     font-weight: 500;
 }
 
-.navbar-2 {
+.navbar {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center !important;
+    /*align-items: center;  */
     background-color: #1a1a1a;
     padding: 10px 20px;
 }
 
-.navbar-2 a {
+.links a {
     color: #f0f0f0;
     text-decoration: none;
     font-size: 18px;
     margin: 0 15px;
 }
 
-.navbar-2 a:hover {
+.links a:hover {
     text-decoration: underline;
 }
 
-.navbar-2 .icon {
+.navbar .icon {
     font-size: 24px;
     color: #fff;
 }
@@ -34,6 +34,7 @@ body {
     background-color: #ffb6c1;
     text-align: center;
     padding: 50px 20px;
+    height: 90vh;
 }
 
 .content h1 {
@@ -83,6 +84,7 @@ body {
     display: flex;
     flex-direction: row;
     gap: 20px;
+    transition: opacity 5s ease-in-out;
 }
 
 .submenu,.submenu-2 {
@@ -129,7 +131,7 @@ body {
 
 .menu,.menu-2 {
     position: relative;
-    padding: 0 10px;
+    /* padding: 0 10px; */
 }
 
 .menu:hover .submenu {
@@ -147,6 +149,7 @@ body {
     display: flex;
     justify-content: center;
     overflow: auto;
+    height: 90vh;
 }
 
 .form-container {
@@ -155,6 +158,7 @@ body {
     border-radius: 15px;
     text-align: center;
     flex: 0.8;
+    height: fit-content;
 }
 
 .form-container h2 {
@@ -167,7 +171,7 @@ body {
     margin: 10px;
     color: #fff;
     text-wrap-mode: nowrap;
-    flex: 1 1 30%; 
+    flex: 1 1 35%; 
 }
 
 .form-container input[type="text"],
@@ -180,7 +184,7 @@ body {
     border-radius: 25px;
     border: none;
     margin-bottom: 15px;
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     text-align: center;
 }
 
@@ -198,7 +202,7 @@ body {
 }
 
 .form-container textarea {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     border: none;
     border-radius: 25px;
     padding: 10px;
@@ -217,8 +221,17 @@ body {
 .flex {
     display: flex;
 }
+.flex-i {
+    display: flex !important;
+}
 .flex-wrap {
     flex-wrap: wrap;
+}
+.gap-10 {
+    gap: 10px;
+}
+.gap-20 {
+    gap: 20px;
 }
 .have-account {
     position: relative;
@@ -282,6 +295,9 @@ body {
 }
 .border-right {
     border-right: 1px solid #fafafa;
+}
+.border-radius-10 {
+    border-radius: 10px;
 }
 .overflow-hidden {
     overflow: hidden;
@@ -382,6 +398,26 @@ body {
 .fa-star.active {
     color: rgb(255, 255, 0);
 }
+.mn-hidden {
+    display: none;
+}
+.mn-bars {
+    display: none;
+}
+.pointer {
+    cursor: pointer;
+}
+
+/* for avatar */
+.user-avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+}
 
 @media (max-width: 767px) {
     body {
@@ -394,7 +430,26 @@ body {
     .flex-wrap-2 {
         flex-wrap: wrap;
     }
-    .form-container {
-        margin-left: 50px;
+    .mn-bars {
+        display: block;
     }
+    .links {
+        position: absolute;
+        padding: 5px;
+        z-index: 3;
+        top: 100%;
+        background: #1a1a1a;
+        height: 0px;
+        visibility: hidden;
+        transition: height .5s ease,visibility 0s .1s;
+    }
+    .links.flex-i {
+        flex-direction: column;
+        visibility: visible;
+        height: 250px;
+    }
+    .navbar {
+        justify-content: flex-start !important;
+    }
+    
 }   

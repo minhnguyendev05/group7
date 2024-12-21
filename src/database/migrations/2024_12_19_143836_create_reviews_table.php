@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('rate');
             $table->string("content");
             $table->integer('userid');
+            $table->integer('reply_to');
             $table->timestamps();
         });
     }

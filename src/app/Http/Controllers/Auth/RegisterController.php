@@ -65,18 +65,18 @@ class RegisterController extends Controller
         return redirect()->route('showverify'); 
     }
     
-    public function verify(Request $request)
-    {   
+    public function verify($token)
+    { 
         $email = session('email');
         $user = User::select('verification_token')->where('email',$email)->first();
-        if ($user->verification_token == $request->token) {
+        if ($user->verification_token == $token) {
             // Xác minh người dùng và đặt trạng thái verified
             $users = User::where('email',$email)->first();
             $users->email_verified_at = now();
             $users->verification_token = null;  // Xóa mã xác nhận sau khi đã xác minh
             $users->save();
 
-            session(['verified'=>'true']);
+            session()->flash('verified','true');
             return redirect()->route('showverify')->with('success', 'Tài khoản của bạn đã được xác minh!');
         }
 
@@ -91,6 +91,7 @@ class RegisterController extends Controller
             if($user->email_verified_at !== null){
                 return redirect()->route('dashboard');
             } else {
+                session()->put('email',$user->email);
                 return view('auth.verify');
             }
         }
@@ -114,9 +115,47 @@ class RegisterController extends Controller
         // Gửi email
         try {
             $result = $emailApi->sendTransacEmail($email);
-            return response()->json(['message' => 'Email sent successfully!']);
+            if(isset($_COOKIE['limit'])){
+                $limit = $_COOKIE['limit'];
+            } else {
+                $limit = 0;
+            }
+            $cookie = cookie('limit', intval($limit)+1 , 1440);
+            return response()->json(['status'=>200,'message' => 'Mã Xác Nhận Đã Được Gửi Tới Email Của Bạn!'])->cookie($cookie);
         } catch (ApiException $e) {
-            return response()->json(['error' => 'Error sending email: ' . $e->getMessage()]);
+            //$e->getMessage()
+            return response()->json(['status'=>500,'message' => 'Error sending email!']);
+        }
+    }
+    public function resend(Request $request){
+        if(empty($request->cookie('limit'))){
+            $limit = 0;
+        } else {
+            $limit = $request->cookie('limit');
+        }
+        if ($limit && $limit >= 2) {
+            return response()->json(["status"=>500,"message"=>"Không Thể Gửi Mã!"]);
+        }
+        if(Auth::check() && Auth::user()->email_verified_at === null){
+            if($this->renew_verify_code()){
+                $user = User::find(Auth::id());
+                return $this->sendmail($user->email,$user);
+            }
+            return response()->json(["status"=>500,"message"=>"Không Thể Gửi Mã!"]);
+        } else {
+            return response()->json(["status"=>500,"message"=>"Không Thể Gửi Mã!"]);
+        }
+    }
+    public function renew_verify_code(){
+        if(Auth::check()){
+            $user = User::find(Auth::id());
+            $coderand = rand(10000,99999);
+            $update = $user->update(['verification_token'=>$coderand]);
+            if($update){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 

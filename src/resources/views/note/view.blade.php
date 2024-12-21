@@ -142,11 +142,11 @@
                 data: { },
                 success: function(response) {
                 const {status,message} = response;
-                if(status === 200){
-                    $('#notes').html(message);
-                } else {
-                    showToast(response.message,3000,"error");
-                }
+                    if(status === 200){
+                        $('#notes').html(message);
+                    } else {
+                        showToast(response.message,3000,"error");
+                    }
                 },
                 error: function(xhr, status, error) {
                     showToast(response.message,3000,"success");
@@ -162,9 +162,10 @@
                 const {status,message} = response;
                 if(status === 200){
                     showToast(response.message,3000,"success");
-                    setTimeout(function(){
-                        location.reload();
-                    },3000);
+                    get_note();
+                    // setTimeout(function(){
+                    //     location.reload();
+                    // },3000);
                 } else {
                     showToast(response.message,3000,"error");
                 }
