@@ -86,17 +86,17 @@
     <div class="mn-frame-bg overflow scroll-bar">
         <h2>Danh Sách Người Dùng</h2>
         <div class="flex flex-evenly flex-wrap text-white">
-            <div class="name-time">Tên</div>
-            <div class="name-time">Ngày Tạo</div>
-            <div class="name-time">Số Bài đánh Giá</div>
+            <div class="name-time border-right">Tên</div>
+            <div class="name-time border-right">Ngày Tạo</div>
+            <div class="name-time border-right">Số Bài đánh Giá</div>
             <div class="name-time">Hành Động</div>
         </div>
         @foreach ($data as $user)
         <div class="flex flex-evenly flex-wrap text-white margin-10">
             <p class="mn-hidden" id="{{ $user->id }}"></p>
-            <div class="name-time">{{ $user->username }}</div>
-            <div class="name-time">{{ $user->created_at }}</div>
-            <div class="name-time">{{ $user->counts}}</div>
+            <div class="name-time border-right">{{ $user->username }}</div>
+            <div class="name-time border-right">{{ $user->created_at }}</div>
+            <div class="name-time border-right">{{ $user->counts}}</div>
             <a class="name-time link">Xóa</a>
         </div>
         @endforeach

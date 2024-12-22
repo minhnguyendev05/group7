@@ -42,7 +42,7 @@
 <body>
     @include('header')
     <div class="content-form">
-        <div style="height:300px;overflow:auto" class="mn-frame-bg scroll-bar">
+        <div style="overflow:auto" class="mn-frame-bg scroll-bar">
             <h2>LỊCH SỬ</h2>
             <div class="flex flex-wrap-2 flex-evenly text-white">
                 <p class="name-time">TÊN CV</p>

@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-use function Ramsey\Uuid\v1;
-
 class AdminController extends Controller
 {
     public function isadmin(){
@@ -39,6 +37,7 @@ class AdminController extends Controller
                 $count = 0;
             }
             $dt->counts = $count;
+            $dt->created_at = date("d/m/Y", strtotime($dt->created_at));
         }
         if($data){
             return view('admin.user',['data'=>$data]);
