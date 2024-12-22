@@ -83,7 +83,7 @@
                     @endif
                 @endfor
             </div>
-            <div class="contents text-white"><p class="text-white">{{ $comment->content }}</p><a class="text-white pointer">Reply</a></div>
+            <div class="contents text-white"><p class="text-white text-auto">{{ $comment->content }}</p><a class="text-white pointer">Reply</a></div>
         </div>
         @endforeach
         

@@ -27,7 +27,7 @@ class AdminController extends Controller
     }
     public function view_user(){
         $this->isadmin();
-        $data = DB::select(DB::raw('SELECT * FROM users WHERE id > 0'));
+        $data = DB::select(DB::raw("SELECT * FROM users WHERE id > 0 AND role = ?"),['member']);
         foreach($data as $dt){
             $id = $dt->id;
             $query = DB::select(DB::raw('SELECT COUNT(id) as counts FROM reviews WHERE userid = ?'), [$id]);
@@ -56,6 +56,7 @@ class AdminController extends Controller
         $user_pass = $user->password;
         if(Hash::check($password,$user_pass)){
             $delete = DB::delete(DB::raw("DELETE FROM users WHERE id = ?"), [$id]);
+            $delete2 = DB::delete(DB::raw("DELETE FROM reviews WHERE userid = ?"), [$id]);
             if($delete){
                 return response()->json(["status"=>200,"message"=>"Xóa Thành Công Người Dùng!"]);
             } else {

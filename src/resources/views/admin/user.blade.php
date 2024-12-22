@@ -77,6 +77,9 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .name-time {
+        padding: 5px;
+    }
 
 </style>
 
