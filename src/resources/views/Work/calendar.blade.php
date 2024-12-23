@@ -44,6 +44,15 @@
 
 <body>
     @include('header')
+    @if (count($note) !== 0)
+    <div class="flex flex-center" style="background: #ffb6c1">
+      <div class="form-container margin-10 overflow scroll-bar text-white" style="width: 100vw;">
+        @foreach ($note as $nt)
+        <h6>{{$nt->content}}</h6>
+        @endforeach
+    </div>
+  </div>
+    @endif
     <div class="content-form">
         <div class="form-container">
             <h2>LỊCH</h2>

@@ -18,6 +18,7 @@ class NoteController extends Controller
         foreach($note as $nt){
             $nt->content = substr($nt->content,0, 10)."...";
             $nt->ngay = date("d/m/Y",strtotime($nt->ngay));
+            $nt->ghim = intval($nt->ghim);
         }
         return view('note.view',['notes'=>$note]);
     }
@@ -65,6 +66,7 @@ class NoteController extends Controller
             foreach($note as $nt){
                 $nt->content = substr($nt->content,0, 10)."...";
                 $nt->ngay = date("d/m/Y",strtotime($nt->ngay));
+                $nt->ghim = intval($nt->ghim);
                 if($nt->ghim === 1){
                     $type = 0;
                     $txt = "Bỏ Ghim";
@@ -132,6 +134,7 @@ class NoteController extends Controller
             "rate" => $stars,
             "content" => $content,
             "userid" => $userid,
+            "reply_to" => 0,
         ]);
         if($review){
             return redirect()->route('view_review')->with('success','Gửi Đánh Giá Thành Công!')

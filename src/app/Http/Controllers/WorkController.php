@@ -38,6 +38,15 @@ class WorkController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
+        if(strtotime($timeend) - strtotime($timestart) < 0){
+            return redirect()->back()->withErrors(['content' => 'Thời Gian Kết Thúc Không Thể Ở Trước Thời Gian Bắt Đầu!']);
+        }
+        $user = Auth::id();
+        $db = DB::table('works')->select('*')->where('timestart','=',$timestart)->where('userid',$user);
+        if($db){
+            // not null array 0 object
+            return redirect()->back()->withErrors(['content' => 'Thời Gian Bắt Đầu Trùng Lặp, Vui Lòng Kiếm Tra Lại!']);
+        }
         // blacklist 
         $word = new WordController();
         $check = $word->check([$workname,$mota]);
@@ -71,7 +80,11 @@ class WorkController extends Controller
 
     }
     public function view(){
-        return view('work.calendar');
+        $now = date("Y-m-d");
+        $id = Auth::id();
+        $db = DB::select(DB::raw('SELECT * FROM notes WHERE userid = ? AND (ghim = 1 OR ngay = ?)'),[$id,$now]);
+        //$db = DB::table('notes')->select('*')->where('ngay',$now)->get();
+        return view('work.calendar',['note'=>$db]);
     }
     public function get_work(Request $request){
         if(Auth::check()){
