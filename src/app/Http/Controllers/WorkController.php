@@ -155,9 +155,9 @@ class WorkController extends Controller
             $userid = $user->id;
             $update = DB::update(DB::raw("UPDATE works SET done = ? WHERE id = ? AND userid = ?"),[$status,$id,$userid]);
             if($update) {
-                return response()->json(["status"=>200,"message"=>"Update Work Successfully!"]);
+                return response()->json(["status"=>200,"message"=>"Cập Nhật Công Việc Thành Công!"]);
             } else {
-                return response()->json(["status"=>500,"message"=>"Unknown Error Occurred!"]);
+                return response()->json(["status"=>500,"message"=>"Có Lỗi Xảy Ra, Cập Nhật Thất Bại!"]);
             }
         }
         return response()->json(["status"=>403,"message"=>"Error Missing Permission!"]);

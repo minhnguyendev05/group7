@@ -42,7 +42,7 @@
     @include('header')
     <div class="content-form">
         <div class="form-container">
-            <h2>SIGN IN</h2>
+            <h2>ĐĂNG NHẬP</h2>
             <form method="POST" class="margin-10" action="{{ route('login') }}">
                 @csrf
                 @if ($errors->any())
@@ -65,7 +65,7 @@
                     <label for="password">MẬT KHẨU</label>
                     <input type="password" id="password" name="password" value="" required>
                 </div>
-                <input type="submit" value="SIGN IN">
+                <input type="submit" value="ĐĂNG NHẬP">
             </form>
             <a class="have-account" href="{{ route('register') }}">Chưa có tài khoản ?</a>
         </div>

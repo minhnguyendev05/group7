@@ -42,8 +42,8 @@
         <h1>QUẢN LÝ LỊCH TRÌNH</h1>
         <h2>THÊM LỊCH TRÌNH CÔNG VIỆC MỚI NÀO</h2>
         <div class="buttons">
-            <button>Tôi đã có tài khoản</button>
-            <button>Tôi chưa có tài khoản</button>
+            <button><a class="text-white" style="text-decoration: none" href="{{route('login')}}">Tôi đã có tài khoản</a></button>
+            <button><a class="text-white" style="text-decoration: none" href="{{route('register')}}">Tôi chưa có tài khoản</a></button>
         </div>
     </div>
     @include('footer')

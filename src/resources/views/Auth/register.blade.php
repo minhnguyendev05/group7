@@ -42,7 +42,7 @@
     @include('header')
     <div class="content-form">
         <div class="form-container">
-            <h2>SIGN UP NEW ACCOUNT</h2>
+            <h2>ĐĂNG KÝ</h2>
             <form method="POST" class="margin-10" action="{{ route('register') }}">
                 @csrf
                 @if ($errors->any())
@@ -69,7 +69,7 @@
                     <label for="email">EMAIL</label>
                     <input type="email" id="email" name="email" value="" required>
                 </div>
-                <input type="submit" value="SIGN UP">
+                <input type="submit" value="ĐĂNG KÝ">
             </form>
             <a class="have-account" href="{{ route('login') }}">Đã có tài khoản ?</a>
         </div>
