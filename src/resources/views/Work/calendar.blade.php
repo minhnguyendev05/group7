@@ -47,9 +47,13 @@
     @if (count($note) !== 0)
     <div class="flex flex-center" style="background: #ffb6c1">
       <div class="form-container margin-10 overflow scroll-bar text-white" style="width: 100vw;">
+        <h4>Ghi Chú</h4>
+        <ol start="1">
         @foreach ($note as $nt)
-        <h6>{{$nt->content}}</h6>
+          <li>{{$nt->content}}</li>
         @endforeach
+        </ol>
+        
     </div>
   </div>
     @endif

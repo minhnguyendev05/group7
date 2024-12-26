@@ -95,7 +95,7 @@ class WorkController extends Controller
             $works = DB::select(DB::raw("SELECT * FROM works WHERE userid = ? AND ((timestart >= ? AND timeend <= ?) OR (timestart >= ? AND timeend IS NULL))"),[$id,$start,$end,$start]);
             $array = [];
             foreach($works as $work){
-                //dump($work);
+                $work->done = intval($work->done);
                 if($work->timeend === null){
                     array_push($array, array(
                         'title' => $work->workname,
