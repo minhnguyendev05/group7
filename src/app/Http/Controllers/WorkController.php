@@ -42,8 +42,9 @@ class WorkController extends Controller
             return redirect()->back()->withErrors(['content' => 'Thời Gian Kết Thúc Không Thể Ở Trước Thời Gian Bắt Đầu!']);
         }
         $user = Auth::id();
-        $db = DB::table('works')->select('*')->where('timestart','=',$timestart)->where('userid',$user);
+        $db = DB::table('works')->select('*')->where('timestart','=',$timestart)->where('userid',$user)->first();
         if($db){
+            //dd($db);
             // not null array 0 object
             return redirect()->back()->withErrors(['content' => 'Thời Gian Bắt Đầu Trùng Lặp, Vui Lòng Kiếm Tra Lại!']);
         }
